@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ماشین‌حساب اعتبار تیکا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#f0eee8; --text:#1d1c19; --muted:#6b675e;
+  --line:#e2dfd6; --accent:#0f6e5a; --accent-soft:#e1f1ec; --warn:#a4400f; --warn-soft:#fbe9df;
+  --ok:#1f7a3a; --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141412; --surface:#1d1c1a; --surface-2:#262522; --text:#ecebe6; --muted:#a19d93;
+    --line:#34332f; --accent:#4cc3a3; --accent-soft:#183a32; --warn:#f0925d; --warn-soft:#3a2418;
+    --ok:#6dd08d; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141412; --surface:#1d1c1a; --surface-2:#262522; --text:#ecebe6; --muted:#a19d93;
+  --line:#34332f; --accent:#4cc3a3; --accent-soft:#183a32; --warn:#f0925d; --warn-soft:#3a2418;
+  --ok:#6dd08d; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.7;font-size:15px}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 48px}
+header h1{font-size:1.6rem;margin:0 0 4px;font-weight:800}
+header p{margin:0;color:var(--muted)}
+.tabs{display:flex;gap:6px;margin:22px 0 18px;background:var(--surface-2);padding:5px;border-radius:12px;width:fit-content}
+.tab{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:700;padding:8px 18px;border-radius:9px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:start}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.card h2{font-size:1.02rem;margin:0 0 12px}
+.card h3{font-size:.92rem;margin:16px 0 8px;color:var(--muted);font-weight:700}
+.months{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
+label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:3px}
+input[type=text],select{width:100%;font:inherit;color:var(--text);background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
+input[type=text]{direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.check{display:flex;gap:8px;align-items:center;font-size:.9rem;color:var(--text);margin-top:10px}
+.check input{accent-color:var(--accent);width:17px;height:17px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.hint{font-size:.78rem;color:var(--muted);margin-top:4px}
+.btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface-2);color:var(--text);border-radius:9px;padding:6px 12px;cursor:pointer}
+.result{background:var(--accent-soft);border-radius:12px;padding:16px;margin-bottom:14px}
+.result.bad{background:var(--warn-soft)}
+.result .lbl{font-size:.85rem;color:var(--muted)}
+.result .big{font-size:2rem;font-weight:800;color:var(--accent);line-height:1.3;font-variant-numeric:tabular-nums}
+.result.bad .big{color:var(--warn);font-size:1.3rem}
+.result .sub{font-size:.88rem;margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+@media (max-width:420px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--surface-2);border-radius:10px;padding:9px 11px}
+.kpi .k{font-size:.75rem;color:var(--muted)}
+.kpi .v{font-weight:700;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+th{color:var(--muted);font-weight:500;font-size:.8rem}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.steps td.num{white-space:normal}
+@media (max-width:480px){table{font-size:.8rem}th,td{padding:6px 3px}}
+.steps td:first-child{color:var(--muted);width:42%}
+.tag{display:inline-block;font-size:.72rem;padding:1px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
+.tag.on{background:var(--accent-soft);color:var(--accent)}
+.note{font-size:.8rem;color:var(--muted);margin-top:18px}
+.hidden{display:none}
+.coll{background:var(--surface-2);border-radius:10px;padding:10px 12px;margin-top:12px}
+.coll .big2{font-weight:800;font-size:1.15rem;color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ماشین‌حساب اعتبار تیکا</h1>
+    <p>محاسبۀ نمونۀ اعتبار خرید ماهانۀ مشتریان حقوق‌بگیر بانک صادرات در دو مرحلۀ پایلوت و رونمایی. مبالغ به تومان است.</p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-stage="pilot">پایلوت</button>
+    <button class="tab" role="tab" aria-selected="false" data-stage="launch">رونمایی</button>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>ورودی‌ها</h2>
+      <h3>خالص واریز حقوق ۶ ماه اخیر</h3>
+      <div class="months" id="months"></div>
+      <div class="hint">ماه‌های بالاتر از ۱۲۰٪ میانه (عیدی، پاداش) برش می‌خورند.</div>
+
+      <h3>ظرفیت بازپرداخت</h3>
+      <div class="row">
+        <div><label for="debt">کسورات اقساطی فعلی در ماه</label><input type="text" id="debt" inputmode="numeric" value="1,000,000"></div>
+        <div><label for="dsr">سقف کسورات بدون وثیقه (٪ حقوق)</label><input type="text" id="dsr" inputmode="decimal" value="50"></div>
+      </div>
+      <div class="row">
+        <div><label for="dsrMax">سقف کسورات با وثیقه (٪ حقوق)</label><input type="text" id="dsrMax" inputmode="decimal" value="60"></div>
+        <div></div>
+      </div>
+      <div class="row">
+        <div><label for="tenor">حداکثر تعداد اقساط</label>
+          <select id="tenor"><option>3</option><option>4</option><option selected>6</option><option>9</option><option>12</option></select></div>
+        <div><label for="quarters">بازبینی‌های سه‌ماهۀ موفق</label>
+          <select id="quarters"><option value="0">۰ (تازه فعال)</option><option value="1">۱ (ماه ۳)</option><option value="2">۲ یا بیشتر (ماه ۶+)</option></select></div>
+      </div>
+      <label class="check"><input type="checkbox" id="bankArrears"> معوقۀ فعال نزد بانک صادرات دارد</label>
+      <label class="check"><input type="checkbox" id="mandate" checked> رضایت استعلام، اختیارنامۀ برداشت مستقیم و تعهد عدم انتقال حساب حقوق امضا شده</label>
+
+      <div id="launchInputs" class="hidden">
+        <h3>لایه‌های رونمایی</h3>
+        <div class="row">
+          <div><label for="infl">تورم نقطه‌به‌نقطۀ سالانه (٪)</label><input type="text" id="infl" inputmode="decimal" value="40"></div>
+          <div><label for="rank">رتبۀ اعتبارسنجی ایرانیان</label>
+            <select id="rank">
+              <option value="A">A</option><option value="B">B</option><option value="C" selected>C</option>
+              <option value="N">بدون سابقه</option><option value="D">D</option><option value="E">E</option>
+            </select></div>
+        </div>
+        <label class="check"><input type="checkbox" id="netArrears"> چک برگشتی رفع‌نشده یا معوقه در شبکۀ بانکی</label>
+        <label class="check"><input type="checkbox" id="wantMore"> متقاضی افزایش سقف با سفتۀ الکترونیک (سِت)</label>
+        <div id="moreBox" class="hidden" style="margin-top:8px">
+          <label for="target">اعتبار ماهانۀ هدف: <b id="targetLbl"></b> از درآمد مبنا</label>
+          <input type="range" id="target" min="0" max="60" step="1" value="60">
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="btn" id="sample">داده نمونه</button>
+        <button class="btn" id="bonus">نمونه با ماه عیدی</button>
+      </div>
+    </section>
+
+    <section class="card" aria-live="polite">
+      <h2>نتیجه</h2>
+      <div id="result" class="result"></div>
+      <div class="kpis" id="kpis"></div>
+      <table class="steps"><tbody id="steps"></tbody></table>
+      <h3>مسیر افزایش اعتبار ماهانه با رفتار خوب</h3>
+      <table><thead><tr><th>زمان</th><th>درصد</th><th>اعتبار ماهانه</th><th>سهم از حقوق خالص</th></tr></thead><tbody id="timeline"></tbody></table>
+      <div id="coll"></div>
+    </section>
+  </div>
+
+  <p class="note">این ابزار نمونه است . اعتبار ماهانه سقف واحد در کل هاب است، با هر واریز حقوق تمدید می‌شود و مانده‌اش به ماه بعد نمی‌رود. خرید از بخش وثیقه‌ای حداکثر ۳ قسط دارد تا ماندۀ آن از مبلغ سفته بیشتر نشود. اگر خرید هر ماه در n قسط بازپرداخت شود، از n ماه به همان مبلغ اعتبار ماهانه می‌رسد. مبالغ به مضرب پایینی ۱۰۰ هزار تومان گرد می‌شوند.</p>
+</div>
+
+<script>
+const fa = new Intl.NumberFormat('fa-IR');
+const faPct = v => new Intl.NumberFormat('fa-IR',{maximumFractionDigits:1}).format(v) + '٪';
+const money = v => fa.format(Math.round(v)) + ' تومان';
+const ROUND = 100000;
+const floorR = v => Math.max(0, Math.floor(v / ROUND) * ROUND);
+const toEn = s => String(s).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/٫/g,'.').replace(/[,،\s]/g,'');
+const num = el => { const v = parseFloat(toEn(el.value)); return isNaN(v) ? 0 : v; };
+const $ = id => document.getElementById(id);
+
+const monthNames = ['ماه ۱ (قدیمی‌ترین)','ماه ۲','ماه ۳','ماه ۴','ماه ۵','ماه ۶ (اخیر)'];
+const SAMPLE = [19400000,19800000,20000000,20200000,20600000,20000000];
+const BONUS  = [19400000,19800000,20000000,20200000,20600000,31000000];
+const mBox = $('months');
+monthNames.forEach((n,i)=>{
+  mBox.insertAdjacentHTML('beforeend', `<div><label for="m${i}">${n}</label><input type="text" id="m${i}" inputmode="numeric"></div>`);
+});
+function fill(arr){ arr.forEach((v,i)=> $('m'+i).value = v.toLocaleString('en-US')); calc(); }
+
+let stage = 'pilot';
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  stage = t.dataset.stage;
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+  $('launchInputs').classList.toggle('hidden', stage !== 'launch');
+  calc();
+}));
+
+const RANK = {A:{d:5,ext:true,freeze:false,lbl:'A'},B:{d:2.5,ext:true,freeze:false,lbl:'B'},C:{d:0,ext:true,freeze:false,lbl:'C'},
+  N:{d:0,ext:true,freeze:false,lbl:'بدون سابقه'},D:{d:-5,ext:false,freeze:true,lbl:'D'},E:{d:null,ext:false,freeze:true,lbl:'E'}};
+
+function median(a){ const s=[...a].sort((x,y)=>x-y); const m=s.length/2; return s.length%2? s[Math.floor(m)] : (s[m-1]+s[m])/2; }
+
+function calc(){
+  const M = [0,1,2,3,4,5].map(i => num($('m'+i)));
+  const D = num($('debt')), dsr = num($('dsr'))/100, dsrMax = num($('dsrMax'))/100, n = parseInt($('tenor').value,10), q = parseInt($('quarters').value,10);
+  const res = $('result'), steps = $('steps'), tl = $('timeline'), kp = $('kpis'), coll = $('coll');
+  steps.innerHTML = tl.innerHTML = kp.innerHTML = coll.innerHTML = '';
+
+  const reject = [];
+  if (M.some(v => v <= 0)) reject.push('شش واریز حقوق پیاپی وجود ندارد.');
+  if ($('bankArrears').checked) reject.push('معوقۀ فعال نزد بانک صادرات.');
+  if (!$('mandate').checked) reject.push('مدارک رضایت و اختیارنامه امضا نشده.');
+  const launch = stage === 'launch';
+  const rk = RANK[$('rank').value];
+  if (launch && $('netArrears').checked) reject.push('چک برگشتی یا معوقه در شبکۀ بانکی.');
+  if (launch && rk.d === null) reject.push('رتبۀ اعتباری E.');
+
+  const med = median(M), cap = 1.2*med;
+  const clipped = M.map(v => Math.min(v, cap));
+  const avg = clipped.reduce((a,b)=>a+b,0)/6;
+  const capacity = Math.max(0, dsr*avg - D);
+  const capacityMax = Math.max(0, dsrMax*avg - D);
+
+  let F = 1, pm = 0;
+  if (launch){
+    const pi = num($('infl'))/100;
+    pm = Math.pow(1+pi, 1/12) - 1;
+    F = Math.max(0.85, Math.pow(1+pm, -(n+1)/2));
+  }
+  const B = avg * F;
+
+  const pTen = qq => (launch && rk.freeze) ? 25 : Math.min(25 + 5*qq, 35);
+  const pOf = qq => launch ? Math.min(40, pTen(qq) + (rk.d||0)) : pTen(qq);
+  const limitOf = qq => floorR(Math.min(pOf(qq)/100 * B, capacity));
+
+  const row = (k,v) => steps.insertAdjacentHTML('beforeend', `<tr><td>${k}</td><td class="num">${v}</td></tr>`);
+  const kpi = (k,v) => kp.insertAdjacentHTML('beforeend', `<div class="kpi"><div class="k">${k}</div><div class="v">${v}</div></div>`);
+
+  if (reject.length){
+    res.className = 'result bad';
+    res.innerHTML = `<div class="lbl">نتیجه</div><div class="big">اعتبار تعلق نمی‌گیرد</div><div class="sub">${reject.join(' ')}</div>`;
+    return;
+  }
+
+  const p = pOf(q), Lraw = p/100 * B, L = limitOf(q);
+  const capBinds = capacity < Lraw;
+  let total = L, dL = 0;
+
+  const wantMore = launch && $('wantMore').checked && rk.ext;
+  $('moreBox').classList.toggle('hidden', !(launch && $('wantMore').checked));
+  const tgt = $('target');
+  tgt.min = Math.ceil(p); if (+tgt.value < p) tgt.value = Math.ceil(p);
+  $('targetLbl').textContent = faPct(+tgt.value);
+  if (wantMore){
+    const maxTotal = Math.min(+tgt.value/100 * B, 0.6 * B, capacityMax);
+    total = Math.max(L, floorR(maxTotal));
+    dL = total - L;
+  }
+
+  res.className = 'result';
+  res.innerHTML = `<div class="lbl">اعتبار خرید ماهانه ${launch?'(مرحلۀ رونمایی)':'(مرحلۀ پایلوت)'}</div>
+    <div class="big">${money(total)}</div>
+    <div class="sub">${faPct(total/avg*100)} حقوق خالص · کسر ماهانۀ پایدار با مصرف کامل: ${money(total)} · حداکثر ماندۀ بدهی: ${money(L*(n+1)/2 + 2*dL)} ${capBinds?'<span class="tag on">قید ظرفیت فعال است</span>':''}</div>`;
+
+  kpi('میانگین تعدیل‌شده', money(avg));
+  kpi(launch ? 'درآمد مبنای واقعی' : 'درآمد مبنا', money(B));
+  kpi('درصد اعتبار', faPct(p));
+
+  row('میانۀ ۶ ماه', money(med));
+  row('سقف برش (۱۲۰٪ میانه)', money(cap));
+  const nClip = M.filter(v => v > cap).length;
+  row('ماه‌های برش‌خورده', nClip ? fa.format(nClip) + ' ماه' : 'ندارد');
+  if (launch){
+    row('تورم ماهانه (π<sub>m</sub>)', faPct(pm*100));
+    row('ضریب تورم (F<sub>π</sub>)', new Intl.NumberFormat('fa-IR',{maximumFractionDigits:3}).format(F) + (F===0.85?' (کف)':''));
+    row('رتبه / Δ<sub>r</sub>', `${rk.lbl} / ${rk.d>=0?'+':''}${faPct(rk.d)}` + (rk.freeze?' (افزایش سه‌ماهه متوقف)':''));
+    row('درصد اعتبار: p<sub>tenure</sub> + Δ<sub>r</sub> (سقف ۴۰٪)', `${faPct(pTen(q))} ${rk.d<0?'−':'+'} ${faPct(Math.abs(rk.d))} = ${faPct(p)}`);
+  } else {
+    row('درصد اعتبار: ۲۵٪ + ۵٪ برای هر بازبینی (سقف ۳۵٪)', faPct(p));
+  }
+  row('p × درآمد مبنا', money(Lraw));
+  row('قید ظرفیت بدون وثیقه: سقف کسورات × میانگین − کسورات فعلی', money(capacity));
+  row('اعتبار ماهانۀ پایه (گرد شده)', money(L));
+
+  [0,1,2].forEach(qq => {
+    const lim = limitOf(qq);
+    const when = ['فعال‌سازی','ماه ۳','ماه ۶ به بعد'][qq];
+    tl.insertAdjacentHTML('beforeend', `<tr${qq===q?' style="font-weight:700"':''}><td>${when}</td><td class="num">${faPct(pOf(qq))}</td><td class="num">${money(lim)}</td><td class="num">${faPct(lim/avg*100)}</td></tr>`);
+  });
+
+  if (launch && $('wantMore').checked){
+    if (!rk.ext){
+      coll.innerHTML = `<div class="coll">افزایش اعتبار با سفته فقط برای رتبه‌های A تا C (و بدون سابقه) مجاز است.</div>`;
+    } else {
+      coll.innerHTML = `<div class="coll"><div>افزایش اعتبار ماهانه (ΔL): <b>${money(dL)}</b> &nbsp;·&nbsp; جمع ${faPct(total/B*100)} درآمد مبنا</div>
+        <div>مبلغ سفتۀ الکترونیک لازم در سِت (۲ × ΔL):</div><div class="big2">${money(2*dL)}</div>
+        <div class="hint">خرید از این بخش حداکثر ۳ قسط دارد، پس ماندۀ آن هیچ‌وقت از مبلغ سفته بیشتر نمی‌شود. قید ظرفیت با وثیقه: ${money(capacityMax)}</div>
+        ${capacityMax < 0.6*B ? '<div class="hint">قید ظرفیت کسورات، سقف ۶۰٪ را محدود کرده است.</div>':''}</div>`;
+    }
+  }
+}
+
+document.querySelectorAll('input,select').forEach(el => {
+  el.addEventListener('input', calc); el.addEventListener('change', calc);
+});
+document.querySelectorAll('input[inputmode=numeric]').forEach(el => el.addEventListener('blur', () => {
+  const v = parseFloat(toEn(el.value)); if (!isNaN(v)) el.value = Math.round(v).toLocaleString('en-US');
+}));
+$('sample').addEventListener('click', () => fill(SAMPLE));
+$('bonus').addEventListener('click', () => fill(BONUS));
+fill(SAMPLE);
+</script>
+</body>
+</html>
