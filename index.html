@@ -3,154 +3,717 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#005B49">
 <title>ماشین‌حساب اعتبار تیکا</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ==========================================================================
+   TIKA DESIGN SYSTEM — توکن‌ها (بخش ۱۲-A سند نظام طراحی)
+   ========================================================================== */
 :root{
-  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#f0eee8; --text:#1d1c19; --muted:#6b675e;
-  --line:#e2dfd6; --accent:#0f6e5a; --accent-soft:#e1f1ec; --warn:#a4400f; --warn-soft:#fbe9df;
-  --ok:#1f7a3a; --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
+  --tika-core-50:#E6F1EE; --tika-core-100:#C2DFD7; --tika-core-300:#6FA697;
+  --tika-core-500:#005B49; --tika-core-600:#004B3C; --tika-core-700:#003A2E; --tika-core-900:#001F19;
+  --tika-growth-50:#F3F9F1; --tika-growth-100:#E4F1DF; --tika-growth-300:#CCE7C3;
+  --tika-growth-500:#B6DCAE; --tika-growth-600:#9BC791; --tika-growth-700:#7FAE73; --tika-growth-900:#4F7A45;
+  --tika-link-50:#EFF8FD; --tika-link-100:#DCF0FB; --tika-link-300:#B7E1F7;
+  --tika-link-500:#90CEF1; --tika-link-600:#5FB2E4; --tika-link-700:#2E93D2; --tika-link-900:#1B6797;
+  --tika-flow-50:#F1F2F9; --tika-flow-100:#E1E3F2; --tika-flow-300:#B7BCE0;
+  --tika-flow-500:#8490C8; --tika-flow-600:#6873B4; --tika-flow-700:#4F5A97; --tika-flow-900:#333B66;
+  --tika-neutral-0:#FFFFFF; --tika-neutral-50:#E8F1EF; --tika-neutral-100:#E6E7E8;
+  --tika-neutral-200:#D1D3D4; --tika-neutral-300:#C6D5D2; --tika-neutral-400:#A7A9AC;
+  --tika-neutral-500:#9EB1AB; --tika-neutral-600:#808285; --tika-neutral-700:#5B6E68;
+  --tika-neutral-800:#3A4642; --tika-neutral-900:#000000;
+  --tika-success-50:#EAF7F0; --tika-success-500:#2F8F63; --tika-success-700:#1F6B48;
+  --tika-warning-50:#FBF3E3; --tika-warning-500:#B8873A; --tika-warning-700:#8C6528;
+  --tika-error-50:#FBECEA; --tika-error-500:#B0544A; --tika-error-700:#843F38;
+  --tika-info-50:var(--tika-link-50); --tika-info-500:var(--tika-link-700); --tika-info-700:var(--tika-link-900);
+  --tika-text-heading:#000000; --tika-text-body:var(--tika-neutral-700); --tika-text-muted:var(--tika-neutral-600);
+  --tika-text-disabled:var(--tika-neutral-400); --tika-text-placeholder:var(--tika-neutral-400);
+  --tika-text-on-primary:#FFFFFF; --tika-text-on-dark:#FFFFFF; --tika-text-on-light-brand:var(--tika-core-700);
+  --tika-text-link:var(--tika-link-700);
+  --tika-bg-app:var(--tika-neutral-50); --tika-bg-surface:var(--tika-neutral-0); --tika-bg-subtle:var(--tika-neutral-100);
+  --tika-border-default:var(--tika-neutral-200); --tika-border-strong:var(--tika-neutral-400);
+  --tika-font-base:"Vazirmatn","Vazirmatn UI","IRANSansX",Tahoma,sans-serif;
+  --tika-fs-h1:2.25rem; --tika-lh-h1:2.75rem; --tika-fs-h2:1.75rem; --tika-lh-h2:2.25rem;
+  --tika-fs-h3:1.5rem; --tika-lh-h3:2rem; --tika-fs-h4:1.25rem; --tika-lh-h4:1.75rem;
+  --tika-fs-h5:1.125rem; --tika-lh-h5:1.625rem; --tika-fs-h6:1rem; --tika-lh-h6:1.5rem;
+  --tika-fs-body-lg:1.125rem; --tika-lh-body-lg:1.75rem; --tika-fs-body-md:1rem; --tika-lh-body-md:1.5rem;
+  --tika-fs-body-sm:.875rem; --tika-lh-body-sm:1.25rem; --tika-fs-caption:.75rem; --tika-lh-caption:1rem;
+  --tika-fs-button:.9375rem; --tika-lh-button:1.375rem;
+  --tika-space-1:.25rem; --tika-space-2:.5rem; --tika-space-3:.75rem; --tika-space-4:1rem;
+  --tika-space-5:1.25rem; --tika-space-6:1.5rem; --tika-space-8:2rem; --tika-space-10:2.5rem; --tika-space-12:3rem;
+  --tika-radius-sm:.25rem; --tika-radius-md:.5rem; --tika-radius-lg:.75rem;
+  --tika-radius-xl:1rem; --tika-radius-2xl:1.5rem; --tika-radius-full:9999px;
+  --tika-shadow-1:0 1px 2px rgba(0,91,73,.06);
+  --tika-shadow-2:0 2px 6px rgba(0,91,73,.08);
+  --tika-shadow-3:0 6px 16px rgba(0,91,73,.10);
+  --tika-shadow-4:0 12px 28px rgba(0,91,73,.12);
+  --tika-shadow-5:0 20px 48px rgba(0,91,73,.16);
+  --tika-duration-fast:150ms; --tika-duration-base:200ms; --tika-duration-moderate:300ms;
+  --tika-ease-standard:cubic-bezier(.4,0,.2,1);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#141412; --surface:#1d1c1a; --surface-2:#262522; --text:#ecebe6; --muted:#a19d93;
-    --line:#34332f; --accent:#4cc3a3; --accent-soft:#183a32; --warn:#f0925d; --warn-soft:#3a2418;
-    --ok:#6dd08d; --shadow:none;
-  }
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:var(--tika-font-base);
+  background:#DDE7E4;
+  background-image:radial-gradient(ellipse at 20% 0%,#C2DFD7 0%,transparent 55%),radial-gradient(ellipse at 90% 100%,#E1E3F2 0%,transparent 50%);
+  background-attachment:fixed;
+  color:var(--tika-text-body);
+  font-size:var(--tika-fs-body-md);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
 }
-:root[data-theme="dark"]{
-  --bg:#141412; --surface:#1d1c1a; --surface-2:#262522; --text:#ecebe6; --muted:#a19d93;
-  --line:#34332f; --accent:#4cc3a3; --accent-soft:#183a32; --warn:#f0925d; --warn-soft:#3a2418;
-  --ok:#6dd08d; --shadow:none;
+
+.wrap{max-width:1120px;margin:0 auto;padding:var(--tika-space-8) var(--tika-space-4) var(--tika-space-12)}
+
+/* ---------- سربرگ برند تیکا ---------- */
+.brand-banner{
+  background:linear-gradient(135deg, var(--tika-core-500) 0%, var(--tika-core-600) 60%, var(--tika-core-700) 100%);
+  color:var(--tika-text-on-dark);
+  border-radius:var(--tika-radius-2xl);
+  padding:var(--tika-space-6) var(--tika-space-6);
+  box-shadow:var(--tika-shadow-4);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--tika-space-4);
+  position:relative;
+  overflow:hidden;
 }
-*{box-sizing:border-box}
-html,body{margin:0}
-body{background:var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.7;font-size:15px}
-.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 48px}
-header h1{font-size:1.6rem;margin:0 0 4px;font-weight:800}
-header p{margin:0;color:var(--muted)}
-.tabs{display:flex;gap:6px;margin:22px 0 18px;background:var(--surface-2);padding:5px;border-radius:12px;width:fit-content}
-.tab{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:700;padding:8px 18px;border-radius:9px;cursor:pointer}
-.tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:start}
-@media (max-width:820px){.grid{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
-.card h2{font-size:1.02rem;margin:0 0 12px}
-.card h3{font-size:.92rem;margin:16px 0 8px;color:var(--muted);font-weight:700}
-.months{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-@media (max-width:420px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
-label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:3px}
-input[type=text],select{width:100%;font:inherit;color:var(--text);background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
-input[type=text]{direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
-input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
-.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
-.check{display:flex;gap:8px;align-items:center;font-size:.9rem;color:var(--text);margin-top:10px}
-.check input{accent-color:var(--accent);width:17px;height:17px}
-input[type=range]{width:100%;accent-color:var(--accent)}
-.hint{font-size:.78rem;color:var(--muted);margin-top:4px}
-.btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.btn{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface-2);color:var(--text);border-radius:9px;padding:6px 12px;cursor:pointer}
-.result{background:var(--accent-soft);border-radius:12px;padding:16px;margin-bottom:14px}
-.result.bad{background:var(--warn-soft)}
-.result .lbl{font-size:.85rem;color:var(--muted)}
-.result .big{font-size:2rem;font-weight:800;color:var(--accent);line-height:1.3;font-variant-numeric:tabular-nums}
-.result.bad .big{color:var(--warn);font-size:1.3rem}
-.result .sub{font-size:.88rem;margin-top:4px}
-.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
-@media (max-width:420px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.kpi{background:var(--surface-2);border-radius:10px;padding:9px 11px}
-.kpi .k{font-size:.75rem;color:var(--muted)}
-.kpi .v{font-weight:700;font-variant-numeric:tabular-nums}
-table{width:100%;border-collapse:collapse;font-size:.88rem}
-th,td{padding:7px 6px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
-th{color:var(--muted);font-weight:500;font-size:.8rem}
-td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.brand-banner::after{
+  content:"";
+  position:absolute;
+  left:-40px;
+  bottom:-60px;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  border:28px solid rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.brand-banner__main{display:flex;align-items:center;gap:var(--tika-space-4);position:relative;z-index:1}
+.brand-banner__logo{
+  width:52px;height:52px;border-radius:var(--tika-radius-xl);
+  background:rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--tika-growth-500);flex-shrink:0;
+}
+.brand-banner h1{font-size:var(--tika-fs-h3);line-height:var(--tika-lh-h3);margin:0 0 4px;font-weight:700;color:#fff}
+.brand-banner p{margin:0;color:rgba(255,255,255,.84);font-size:var(--tika-fs-body-sm)}
+.brand-badge{
+  background:var(--tika-growth-500);
+  color:var(--tika-core-900);
+  font-size:var(--tika-fs-caption);
+  font-weight:700;
+  padding:6px 14px;
+  border-radius:var(--tika-radius-full);
+  white-space:nowrap;
+  position:relative;z-index:1;
+}
+@media (max-width:640px){
+  .brand-banner{flex-direction:column;align-items:flex-start}
+}
+
+/* ---------- تب‌ها (Segmented Control منطبق با دیزاین سیستم) ---------- */
+.tabs{
+  display:inline-flex;
+  gap:6px;
+  margin:var(--tika-space-6) 0 var(--tika-space-5);
+  background:var(--tika-neutral-0);
+  padding:6px;
+  border-radius:var(--tika-radius-full);
+  border:1px solid var(--tika-neutral-200);
+  box-shadow:var(--tika-shadow-1);
+  flex-wrap:wrap;
+}
+.tab{
+  border:0;
+  background:transparent;
+  color:var(--tika-text-muted);
+  font:inherit;
+  font-size:var(--tika-fs-body-sm);
+  font-weight:600;
+  padding:9px 20px;
+  border-radius:var(--tika-radius-full);
+  cursor:pointer;
+  transition:all var(--tika-duration-base) var(--tika-ease-standard);
+}
+.tab:hover{color:var(--tika-core-600)}
+.tab[aria-selected="true"]{
+  background:var(--tika-core-500);
+  color:var(--tika-text-on-primary);
+  box-shadow:var(--tika-shadow-2);
+}
+
+/* ---------- گرید و کارت‌ها ---------- */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:var(--tika-space-5);align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+
+.card{
+  background:var(--tika-bg-surface);
+  border:1px solid var(--tika-neutral-100);
+  border-radius:var(--tika-radius-xl);
+  padding:var(--tika-space-6);
+  box-shadow:var(--tika-shadow-2);
+}
+.card h2{
+  font-size:var(--tika-fs-h5);
+  line-height:var(--tika-lh-h5);
+  color:var(--tika-core-700);
+  margin:0 0 var(--tika-space-3);
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.card h3{
+  font-size:var(--tika-fs-body-sm);
+  margin:var(--tika-space-5) 0 var(--tika-space-2);
+  color:var(--tika-core-600);
+  font-weight:700;
+}
+
+/* ---------- فرم و ورودی‌ها ---------- */
+.months{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--tika-space-2)}
+@media (max-width:460px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+label{
+  display:block;
+  font-size:var(--tika-fs-caption);
+  color:var(--tika-text-body);
+  font-weight:600;
+  margin-bottom:4px;
+}
+input[type=text],select{
+  width:100%;
+  height:44px;
+  font:inherit;
+  font-size:var(--tika-fs-body-sm);
+  color:var(--tika-text-heading);
+  background:var(--tika-neutral-0);
+  border:1px solid var(--tika-border-default);
+  border-radius:var(--tika-radius-md);
+  padding:0 var(--tika-space-3);
+  transition:border-color var(--tika-duration-fast),box-shadow var(--tika-duration-fast);
+}
+input[type=text]{direction:ltr;text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+input[type=text]:focus,select:focus{
+  outline:none;
+  border-color:var(--tika-link-600);
+  box-shadow:0 0 0 3px rgba(95,178,228,.25);
+}
+
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--tika-space-3);margin-top:var(--tika-space-3)}
+@media (max-width:540px){.row{grid-template-columns:1fr}}
+
+.check{
+  display:flex;
+  gap:var(--tika-space-2);
+  align-items:center;
+  font-size:var(--tika-fs-body-sm);
+  color:var(--tika-text-heading);
+  font-weight:500;
+  margin-top:var(--tika-space-3);
+  cursor:pointer;
+}
+.check input{accent-color:var(--tika-core-500);width:18px;height:18px;flex-shrink:0;cursor:pointer}
+input[type=range]{width:100%;accent-color:var(--tika-core-500);cursor:pointer}
+
+.hint{font-size:var(--tika-fs-caption);color:var(--tika-text-muted);margin-top:6px;line-height:1.6}
+
+.btns{display:flex;gap:var(--tika-space-2);margin-top:var(--tika-space-5);flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:40px;padding:0 var(--tika-space-4);
+  font:inherit;font-size:var(--tika-fs-body-sm);font-weight:600;
+  border:1px solid var(--tika-core-300);
+  background:var(--tika-core-50);
+  color:var(--tika-core-700);
+  border-radius:var(--tika-radius-lg);
+  cursor:pointer;
+  transition:all var(--tika-duration-fast) var(--tika-ease-standard);
+}
+.btn:hover{background:var(--tika-core-100)}
+.btn:active{transform:scale(.98)}
+
+/* ---------- باکس نتیجه (مشابه کارت کیف پول تیکا) ---------- */
+.result{
+  background:linear-gradient(145deg,#005B49 0%,#00745C 55%,#00614E 100%);
+  color:#fff;
+  border-radius:var(--tika-radius-2xl);
+  padding:var(--tika-space-5);
+  margin-bottom:var(--tika-space-4);
+  box-shadow:var(--tika-shadow-3);
+  position:relative;
+  overflow:hidden;
+}
+.result::after{
+  content:"";position:absolute;left:-25px;bottom:-45px;width:150px;height:150px;
+  border-radius:50%;border:20px solid rgba(255,255,255,.07);pointer-events:none;
+}
+.result.bad{
+  background:var(--tika-error-50);
+  border:1px solid var(--tika-error-500);
+  color:var(--tika-error-700);
+  box-shadow:none;
+}
+.result .lbl{font-size:var(--tika-fs-caption);color:rgba(255,255,255,.82);font-weight:500}
+.result.bad .lbl{color:var(--tika-error-700)}
+.result .big{
+  font-size:var(--tika-fs-h2);
+  font-weight:800;
+  color:#fff;
+  line-height:1.35;
+  margin-top:4px;
+  font-variant-numeric:tabular-nums;
+}
+.result.bad .big{color:var(--tika-error-700);font-size:var(--tika-fs-h4)}
+.result .sub{font-size:var(--tika-fs-caption);color:rgba(255,255,255,.9);margin-top:8px;line-height:1.7}
+.result.bad .sub{color:var(--tika-error-700)}
+
+/* ---------- شاخص‌های کلیدی (KPIs) ---------- */
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--tika-space-2);margin-bottom:var(--tika-space-4)}
+@media (max-width:460px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{
+  background:var(--tika-core-50);
+  border:1px solid var(--tika-core-100);
+  border-radius:var(--tika-radius-lg);
+  padding:10px 12px;
+}
+.kpi .k{font-size:var(--tika-fs-caption);color:var(--tika-core-700);opacity:.85}
+.kpi .v{font-weight:700;color:var(--tika-core-900);font-size:var(--tika-fs-body-sm);font-variant-numeric:tabular-nums;margin-top:2px}
+
+/* ---------- جداول ---------- */
+table{width:100%;border-collapse:collapse;font-size:var(--tika-fs-body-sm)}
+th,td{padding:9px 8px;border-bottom:1px solid var(--tika-neutral-100);text-align:right;vertical-align:top}
+th{color:var(--tika-core-700);font-weight:600;font-size:var(--tika-fs-caption);background:var(--tika-neutral-50)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600;color:var(--tika-text-heading)}
 .steps td.num{white-space:normal}
-@media (max-width:480px){table{font-size:.8rem}th,td{padding:6px 3px}}
-.steps td:first-child{color:var(--muted);width:42%}
-.tag{display:inline-block;font-size:.72rem;padding:1px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
-.tag.on{background:var(--accent-soft);color:var(--accent)}
-.note{font-size:.8rem;color:var(--muted);margin-top:18px}
-.hidden{display:none}
-.coll{background:var(--surface-2);border-radius:10px;padding:10px 12px;margin-top:12px}
-.coll .big2{font-weight:800;font-size:1.15rem;color:var(--warn)}
+.steps td:first-child{color:var(--tika-text-body);width:48%}
+@media (max-width:480px){table{font-size:var(--tika-fs-caption)}th,td{padding:7px 4px}}
+
+/* ---------- برچسب‌ها و وضعیت‌ها ---------- */
+.tag{
+  display:inline-flex;align-items:center;
+  font-size:var(--tika-fs-caption);font-weight:600;
+  padding:2px 10px;border-radius:var(--tika-radius-full);
+  background:var(--tika-neutral-100);color:var(--tika-text-body);
+}
+.tag.on{background:var(--tika-warning-50);color:var(--tika-warning-700)}
+.tag.ok{background:var(--tika-success-50);color:var(--tika-success-700)}
+.tag.info{background:var(--tika-info-50);color:var(--tika-info-700)}
+
+.coll{
+  background:var(--tika-warning-50);
+  border:1px solid rgba(184,135,58,.35);
+  border-radius:var(--tika-radius-lg);
+  padding:var(--tika-space-4);
+  margin-top:var(--tika-space-4);
+  color:var(--tika-core-900);
+}
+.coll .big2{font-weight:800;font-size:var(--tika-fs-h4);color:var(--tika-warning-700);margin:4px 0}
+
+/* ---------- استایل‌های بخش تشریح مدل‌ها (تب اول) ---------- */
+.sec-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--tika-core-500);color:#fff;
+  font-size:var(--tika-fs-caption);font-weight:700;
+  padding:4px 12px;border-radius:var(--tika-radius-full);
+  margin-bottom:var(--tika-space-2);
+}
+.sec-badge.alt{background:var(--tika-flow-700)}
+
+.exec-summary{
+  background:linear-gradient(135deg, var(--tika-growth-50) 0%, #FFFFFF 100%);
+  border:1px solid var(--tika-growth-500);
+  border-radius:var(--tika-radius-2xl);
+  padding:var(--tika-space-6);
+  box-shadow:var(--tika-shadow-2);
+  margin-bottom:var(--tika-space-6);
+}
+.exec-summary h2{
+  font-size:var(--tika-fs-h4);
+  color:var(--tika-core-700);
+  margin:0 0 var(--tika-space-2);
+  font-weight:800;
+}
+.exec-cards{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--tika-space-4);
+  margin-top:var(--tika-space-4);
+}
+@media (max-width:860px){.exec-cards{grid-template-columns:1fr}}
+
+.exec-card{
+  background:var(--tika-bg-surface);
+  border:1px solid var(--tika-core-100);
+  border-top:4px solid var(--tika-core-500);
+  border-radius:var(--tika-radius-xl);
+  padding:var(--tika-space-4);
+  box-shadow:var(--tika-shadow-1);
+}
+.exec-card.launch-card{border-top-color:var(--tika-flow-600)}
+.exec-card.logic-card{border-top-color:var(--tika-link-700)}
+.exec-card h3{
+  margin:0 0 var(--tika-space-2);
+  font-size:var(--tika-fs-h6);
+  color:var(--tika-core-900);
+}
+.exec-card p{margin:0;font-size:var(--tika-fs-body-sm);color:var(--tika-text-body);line-height:1.8}
+
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--tika-space-5);margin-top:var(--tika-space-4)}
+@media (max-width:860px){.doc-grid{grid-template-columns:1fr}}
+
+.formula-box{
+  background:var(--tika-neutral-50);
+  border-right:4px solid var(--tika-core-500);
+  padding:12px 16px;
+  border-radius:var(--tika-radius-md);
+  margin:10px 0;
+  font-size:var(--tika-fs-body-sm);
+}
+.formula-box code{
+  font-family:inherit;
+  font-weight:700;
+  color:var(--tika-core-700);
+  direction:ltr;
+  display:inline-block;
+}
+.doc-list{margin:8px 0;padding-right:18px;font-size:var(--tika-fs-body-sm)}
+.doc-list li{margin-bottom:6px;color:var(--tika-text-body)}
+.doc-list li b{color:var(--tika-core-900)}
+
+.note{
+  font-size:var(--tika-fs-caption);
+  color:var(--tika-text-body);
+  margin-top:var(--tika-space-6);
+  background:rgba(255,255,255,.65);
+  padding:var(--tika-space-3) var(--tika-space-4);
+  border-radius:var(--tika-radius-lg);
+  border:1px solid var(--tika-neutral-200);
+}
+.hidden{display:none !important}
 </style>
 </head>
 <body>
+
 <div class="wrap">
-  <header>
-    <h1>ماشین‌حساب اعتبار تیکا</h1>
-    <p>محاسبۀ نمونۀ اعتبار خرید ماهانۀ مشتریان حقوق‌بگیر بانک صادرات در دو مرحلۀ پایلوت و رونمایی. مبالغ به تومان است.</p>
+  <!-- سربرگ منطبق با هویت بصری تیکا -->
+  <header class="brand-banner">
+    <div class="brand-banner__main">
+      <div class="brand-banner__logo" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 64 64">
+          <circle cx="22" cy="22" r="13" fill="currentColor" opacity=".45"/>
+          <circle cx="42" cy="22" r="13" fill="none" stroke="currentColor" stroke-width="3.5"/>
+          <circle cx="22" cy="42" r="13" fill="none" stroke="currentColor" stroke-width="3.5"/>
+          <circle cx="42" cy="42" r="13" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>ماشین‌حساب و مستندات اعتباردهی هاب تیکا</h1>
+        <p>شبیه‌ساز محاسبۀ اعتبار خرید ماهانۀ مشتریان حقوق‌بگیر بانک صادرات ایران در مراحل پایلوت، رونمایی و رشد (مبالغ به تومان)</p>
+      </div>
+    </div>
+    <span class="brand-badge">تیکا</span>
   </header>
 
+  <!-- تب‌ها -->
   <div class="tabs" role="tablist">
-    <button class="tab" role="tab" aria-selected="true" data-stage="pilot">پایلوت</button>
+    <button class="tab" role="tab" aria-selected="true" data-stage="guide">تشریح مدل‌های اعتباردهی</button>
+    <button class="tab" role="tab" aria-selected="false" data-stage="pilot">پایلوت</button>
     <button class="tab" role="tab" aria-selected="false" data-stage="launch">رونمایی</button>
+    <button class="tab" role="tab" aria-selected="false" data-stage="growth">رشد</button>
   </div>
 
-  <div class="grid">
-    <section class="card">
-      <h2>ورودی‌ها</h2>
-      <h3>خالص واریز حقوق ۶ ماه اخیر</h3>
-      <div class="months" id="months"></div>
-      <div class="hint">ماه‌های بالاتر از ۱۲۰٪ میانه (عیدی، پاداش) برش می‌خورند.</div>
+  <!-- =====================================================================
+       تب اول: تشریح مدل‌های اعتباردهی (در دو بخش مدیریتی و تکمیلی)
+       ===================================================================== -->
+  <div id="guidePane">
 
-      <h3>ظرفیت بازپرداخت</h3>
-      <div class="row">
-        <div><label for="debt">کسورات اقساطی فعلی در ماه</label><input type="text" id="debt" inputmode="numeric" value="1,000,000"></div>
-        <div><label for="dsr">سقف کسورات بدون وثیقه (٪ حقوق)</label><input type="text" id="dsr" inputmode="decimal" value="50"></div>
+    <!-- بخش اول: خلاصه مدیریتی -->
+    <section class="exec-summary">
+      <span class="sec-badge">بخش اول · خلاصۀ مدیریتی</span>
+      <h2>منطق کلی اعتباردهی در هاب تیکا (نگاه کلان)</h2>
+      <p style="margin:0;font-size:var(--tika-fs-body-sm);color:var(--tika-core-900)">
+        هاب اعتباری تیکا به کارمندان و بازنشستگانی که حساب حقوق آن‌ها نزد <b>بانک صادرات ایران</b> است، یک <b>«سقف اعتبار خرید ماهانه»</b> اختصاص می‌دهد. اقساط خریدها دقیقاً در روز واریز حقوق به صورت خودکار از حساب مشتری کسر می‌شود. منطق کلی بر <b>شروع محافظه‌کارانه و افزایش پلکانی اعتبار در ازای خوش‌حسابی</b> استوار است:
+      </p>
+
+      <div class="exec-cards">
+        <div class="exec-card logic-card">
+          <h3>ساختار واحد اعتبار ماهانه</h3>
+          <p>
+            اعتبار تخصیص‌یافته یک <b>سقف واحد در کل هاب</b> است که تمام لندتک‌ها از آن سهم می‌برند. این اعتبار هر ماه با واریز حقوق تمدید می‌شود و ماندۀ مصرف‌نشدۀ آن به ماه بعد منتقل نمی‌گردد.
+          </p>
+        </div>
+        <div class="exec-card">
+          <h3>منطق مدل پایلوت (بدون وثیقه)</h3>
+          <p>
+            در فاز پایلوت، اعتبارسنجی صرفاً بر پایۀ <b>میانگین خالص حقوق ۶ ماه اخیر</b> (پس از حذف اثر عیدی و پاداش) انجام می‌شود. مشتری با <b>۲۵٪ حقوق</b> (قابل تنظیم) شروع کرده و در صورت خوش‌حسابی، هر سه ماه <b>۵٪</b> به سقف او اضافه می‌شود تا به <b>۳۵٪</b> برسد.
+          </p>
+        </div>
+        <div class="exec-card launch-card">
+          <h3>منطق مدل رونمایی (ریسک + وثیقه)</h3>
+          <p>
+            در فاز رونمایی، علاوه بر حقوق، <b>تورم سالانه</b> (کاهش ارزش واقعی حقوق در طول اقساط) و <b>رتبۀ اعتبارسنجی ایرانیان</b> لحاظ می‌شود (سقف بدون وثیقه تا <b>۴۰٪</b>). همچنین مشتریان خوش‌رتبه می‌توانند با <b>سفتۀ الکترونیک (سِت)</b> سقف خود را تا <b>۶۰٪</b> (قابل تنظیم) افزایش دهند.
+          </p>
+        </div>
       </div>
-      <div class="row">
-        <div><label for="dsrMax">سقف کسورات با وثیقه (٪ حقوق)</label><input type="text" id="dsrMax" inputmode="decimal" value="60"></div>
-        <div></div>
+    </section>
+
+    <!-- بخش دوم: توضیحات تکمیلی و با جزئیات -->
+    <div style="margin-bottom:var(--tika-space-3)">
+      <span class="sec-badge alt">بخش دوم · تشریح تکمیلی و فنی مدل‌ها</span>
+    </div>
+
+    <section class="card" style="margin-bottom:var(--tika-space-5)">
+      <h2>پیش‌نیازهای ورود و محاسبۀ درآمد پایه (مشترک در پایلوت و رونمایی)</h2>
+      <div class="doc-grid" style="margin-top:var(--tika-space-2)">
+        <div>
+          <h3>شرایط ورود (فیلترهای رد قطعی)</h3>
+          <ul class="doc-list">
+            <li>کارمند رسمی یا بازنشسته با حساب مقصد حقوق نزد بانک صادرات ایران</li>
+            <li>وجود <b>۶ واریز حقوق پیاپی</b> در ۶ ماه اخیر</li>
+            <li>نداشتن بدهی معوقۀ فعال نزد بانک صادرات</li>
+            <li>امضای دیجیتال رضایت استعلام، اختیارنامۀ برداشت مستقیم و تعهد عدم انتقال حساب حقوق</li>
+            <li><b>بازنشستگان:</b> حداکثر سن ۷۵ سال در پایان اقساط (مگر همراه با بیمۀ عمر ماندۀ بدهی)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>پاک‌سازی اثر عیدی و پاداش (برش ۱۲۰٪ میانه)</h3>
+          <p style="margin:0 0 8px;font-size:var(--tika-fs-body-sm)">
+            برای جلوگیری از خطای محاسباتی ناشی از واریزی‌های استثنایی (مانند عیدی یا پاداش)، ابتدا <b>میانۀ حقوق ۶ ماه</b> محاسبه شده و هر ماهی که بیش از <b>۱۲۰٪ میانه</b> باشد، در همان سقف ۱۲۰٪ برش می‌خورد:
+          </p>
+          <div class="formula-box">
+            <code>M̃ᵢ = min( Mᵢ , 1.2 × Median(M) )</code><br>
+            <code>Avg = ( M̃₁ + M̃₂ + ... + M̃₆ ) / 6</code>
+          </div>
+          <div class="hint">اگر مشتری هر ماه تمام اعتبار (L) را در n قسط مصرف کند، کسر ماهانۀ او پس از n ماه به L می‌رسد و حداکثر ماندۀ بدهی او برابر <b>L × (n + 1) / 2</b> خواهد بود.</div>
+        </div>
       </div>
+    </section>
+
+    <div class="doc-grid">
+      <!-- جزئیات مدل پایلوت -->
+      <section class="card">
+        <h2>۱. جزئیات فنی مدل پایلوت</h2>
+        <p style="margin:0 0 10px;font-size:var(--tika-fs-body-sm)">
+          در مرحلۀ پایلوت هیچ‌گونه وثیقه‌ای دریافت نمی‌شود و سقف اعتبار ماهانه از رابطۀ زیر به دست می‌آید:
+        </p>
+
+        <div class="formula-box">
+          <code>pₖ = min( p₀ + 5% × k , p₀ + 10% )</code><br>
+          <code>L = min( pₖ × Avg , DSRᵤ × Avg )</code>
+        </div>
+
+        <ul class="doc-list">
+          <li><b>درصد اعتبار پایه (p₀):</b> به صورت پیش‌فرض <b>۲۵٪</b> از میانگین تعدیل‌شدۀ حقوق (Avg) است (در ماشین‌حساب قابل تنظیم است).</li>
+          <li><b>گام افزایش سه‌ماهه:</b> به ازای هر بازبینی سه‌ماهۀ موفق (k)، <b>۵٪</b> به درصد اعتبار افزوده می‌شود تا حداکثر ۱۰٪ بالاتر از پایۀ اولیه (پیش‌فرض <b>۳۵٪</b>).</li>
+          <li><b>ظرفیت بدهکاری به تیکا بدون وثیقه (DSRᵤ):</b> سقف مجاز تعهد ماهانه به حقوق اسمی (پیش‌فرض <b>۵۰٪</b>).</li>
+        </ul>
+
+        <h3>جدول تصمیم‌گیری در بازبینی‌های سه‌ماهه</h3>
+        <table>
+          <thead>
+            <tr><th>وضعیت مشتری در پایان دورۀ سه‌ماهه</th><th>اقدام سیستم</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>میانگین ۳ ماه اخیر بین ۹۰٪ تا ۱۲۰٪ Avg مبنا + واریز کامل حقوق‌ها + نداشتن قسط معوق بیش از ۱۵ روز</td>
+              <td>افزایش <b>۵٪</b> به درصد اعتبار (p)</td>
+            </tr>
+            <tr>
+              <td>میانگین ۳ ماه اخیر بیش از ۱۲۰٪ Avg مبنا (مانند افزایش سالانۀ حقوق)</td>
+              <td>محاسبۀ مجدد Avg + افزایش <b>۵٪</b> به p</td>
+            </tr>
+            <tr>
+              <td>میانگین ۳ ماه اخیر کمتر از ۹۰٪ Avg مبنا</td>
+              <td>محاسبۀ مجدد Avg و ثابت ماندن p</td>
+            </tr>
+            <tr>
+              <td>عدم واریز حقوق یک ماه یا معوق ماندن قسط بیش از ۳۰ روز</td>
+              <td>توقف خرید جدید و ادامۀ کسر اقساط</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- جزئیات مدل رونمایی -->
+      <section class="card">
+        <h2>۲. جزئیات فنی مدل رونمایی</h2>
+        <p style="margin:0 0 10px;font-size:var(--tika-fs-body-sm)">
+          در مرحلۀ رونمایی، قواعد پایلوت حفظ شده و سه لایۀ کنترلی و توسعه‌ای به فرمول اضافه می‌گردد:
+        </p>
+
+        <h3>لایۀ ۱: ضریب تعدیل تورم (F<sub>π</sub>)</h3>
+        <p style="margin:0 0 6px;font-size:var(--tika-fs-body-sm)">
+          ارزش واقعی حقوق در میانۀ دورۀ اقساط (n) نسبت به تورم نقطه‌به‌نقطۀ سالانه (π) سنجیده می‌شود (با کف ۰٫۸۵):
+        </p>
+        <div class="formula-box">
+          <code>πₘ = (1 + π)^(1/12) - 1</code><br>
+          <code>F_π = max( 0.85 , (1 + πₘ)^(-(n+1)/2) )</code><br>
+          <code>B = Avg × F_π</code>
+        </div>
+        <div class="hint">درصد اعتبار روی درآمد واقعی (B) اعمال می‌شود، اما ظرفیت بدهکاری روی حقوق اسمی (Avg) سنجیده می‌شود چون اقساط اسمی هستند.</div>
+
+        <h3>لایۀ ۲: رتبۀ اعتبارسنجی ایرانیان (Δ<sub>r</sub>)</h3>
+        <p style="margin:0 0 6px;font-size:var(--tika-fs-body-sm)">
+          چک برگشتی رفع‌نشده یا معوقه در شبکۀ بانکی یا رتبۀ E منجر به <b>رد قطعی</b> می‌شود:
+        </p>
+        <table>
+          <thead>
+            <tr><th>رتبۀ اعتباری</th><th>تعدیل (Δ<sub>r</sub>)</th><th>تأثیر بر سقف و فرآیند</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>A</b></td><td class="num">+۵٪</td><td>شروع از p₀ + ۵٪ (۳۰٪) · مجاز به سفته</td></tr>
+            <tr><td><b>B</b></td><td class="num">+۲٫۵٪</td><td>شروع از p₀ + ۲٫۵٪ (۲۷٫۵٪) · مجاز به سفته</td></tr>
+            <tr><td><b>C / بدون سابقه</b></td><td class="num">۰٪</td><td>مانند پایلوت (شروع از p₀) · مجاز به سفته</td></tr>
+            <tr><td><b>D</b></td><td class="num">−۵٪</td><td>کاهش ۵٪ · توقف افزایش سه‌ماهه · بدون سفته</td></tr>
+            <tr><td><b>E</b></td><td class="num">رد قطعی</td><td>عدم اختصاص اعتبار</td></tr>
+          </tbody>
+        </table>
+
+        <h3>لایۀ ۳: سقف پایه و افزایش با سفتۀ الکترونیک (سِت)</h3>
+        <div class="formula-box">
+          <code>p = min( 40% , p_tenure + Δᵣ )</code><br>
+          <code>L_base = min( p × B , DSRᵤ × Avg )</code><br>
+          <code>L_total = L_base + ΔL ≤ min( p_max × B , DSR_max × Avg )</code>
+        </div>
+        <ul class="doc-list">
+          <li><b>سقف بدون وثیقه (L<sub>base</sub>):</b> حداکثر تا ۴۰٪ درآمد مبنای واقعی (B).</li>
+          <li><b>حداکثر درصد افزایش با سفته (p<sub>max</sub>):</b> سقف مجاز اعتبار کل با اخذ سفته نسبت به درآمد مبنای واقعی (پیش‌فرض <b>۶۰٪</b> و قابل تنظیم در ماشین‌حساب).</li>
+          <li><b>ظرفیت بدهکاری به تیکا با وثیقه (DSR<sub>max</sub>):</b> حداکثر تعهد ماهانه با اخذ سفته (پیش‌فرض ۶۰٪ حقوق اسمی).</li>
+          <li><b>مبلغ سفتۀ الکترونیک (۲ × ΔL):</b> خرید از بخش وثیقه‌ای (ΔL) <b>حداکثر ۳ قسط</b> دارد؛ بنابراین ماندۀ بدهی این بخش هرگز از <code>2 × ΔL</code> بیشتر نمی‌شود و سفته آن را کامل پوشش می‌دهد (وصول پس از ۹۰ روز تعویق).</li>
+          <li><b>ترمز پرتفوی (سپر نکول):</b> اگر معوقات بالای ۳۰ روز کل پرتفوی از آستانۀ کمیتۀ ریسک عبور کند، افزایش سه‌ماهه و پذیرش سفتۀ جدید متوقف می‌شود.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       تب‌های دوم و سوم: ماشین‌حساب پایلوت و رونمایی
+       ===================================================================== -->
+  <div id="calcPane" class="grid hidden">
+    <section class="card">
+      <h2>ورودی‌ها و پارامترهای محاسبه</h2>
+      <h3>خالص واریز حقوق ۶ ماه اخیر (تومان)</h3>
+      <div class="months" id="months"></div>
+      <div class="hint">ماه‌های بالاتر از ۱۲۰٪ میانه (مانند عیدی و پاداش) به صورت خودکار برش می‌خورند.</div>
+
+      <h3>ظرفیت بازپرداخت و پارامترهای پایه</h3>
       <div class="row">
-        <div><label for="tenor">حداکثر تعداد اقساط</label>
-          <select id="tenor"><option>3</option><option>4</option><option selected>6</option><option>9</option><option>12</option></select></div>
-        <div><label for="quarters">بازبینی‌های سه‌ماهۀ موفق</label>
-          <select id="quarters"><option value="0">۰ (تازه فعال)</option><option value="1">۱ (ماه ۳)</option><option value="2">۲ یا بیشتر (ماه ۶+)</option></select></div>
+        <div>
+          <label for="basePct">درصد اعتبار پایه (٪)</label>
+          <input type="text" id="basePct" inputmode="decimal" value="25">
+        </div>
+        <div>
+          <label for="dsr">ظرفیت بدهکاری به تیکا بدون وثیقه (%حقوق)</label>
+          <input type="text" id="dsr" inputmode="decimal" value="50">
+        </div>
       </div>
+
+      <div class="row" id="dsrMaxWrap" class="hidden">
+        <div>
+          <label for="dsrMax">ظرفیت بدهکاری به تیکا با وثیقه (%حقوق)</label>
+          <input type="text" id="dsrMax" inputmode="decimal" value="60">
+        </div>
+        <div>
+          <label for="collCap">حداکثر درصد افزایش با سفته (% درآمد مبنا)</label>
+          <input type="text" id="collCap" inputmode="decimal" value="60">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="tenor">حداکثر تعداد اقساط (n)</label>
+          <select id="tenor">
+            <option>3</option><option>4</option><option selected>6</option><option>9</option><option>12</option>
+          </select>
+        </div>
+        <div>
+          <label for="quarters">بازبینی‌های سه‌ماهۀ موفق</label>
+          <select id="quarters">
+            <option value="0">۰ (تازه فعال)</option>
+            <option value="1">۱ (ماه ۳)</option>
+            <option value="2">۲ یا بیشتر (ماه ۶+)</option>
+          </select>
+        </div>
+      </div>
+
       <label class="check"><input type="checkbox" id="bankArrears"> معوقۀ فعال نزد بانک صادرات دارد</label>
       <label class="check"><input type="checkbox" id="mandate" checked> رضایت استعلام، اختیارنامۀ برداشت مستقیم و تعهد عدم انتقال حساب حقوق امضا شده</label>
 
       <div id="launchInputs" class="hidden">
-        <h3>لایه‌های رونمایی</h3>
+        <h3>لایه‌های اختصاصی مرحلۀ رونمایی</h3>
         <div class="row">
-          <div><label for="infl">تورم نقطه‌به‌نقطۀ سالانه (٪)</label><input type="text" id="infl" inputmode="decimal" value="40"></div>
-          <div><label for="rank">رتبۀ اعتبارسنجی ایرانیان</label>
+          <div>
+            <label for="infl">تورم نقطه‌به‌نقطۀ سالانه (٪)</label>
+            <input type="text" id="infl" inputmode="decimal" value="40">
+          </div>
+          <div>
+            <label for="rank">رتبۀ اعتبارسنجی ایرانیان</label>
             <select id="rank">
-              <option value="A">A</option><option value="B">B</option><option value="C" selected>C</option>
-              <option value="N">بدون سابقه</option><option value="D">D</option><option value="E">E</option>
-            </select></div>
+              <option value="A">A (+۵٪)</option>
+              <option value="B">B (+۲٫۵٪)</option>
+              <option value="C" selected>C (۰٪)</option>
+              <option value="N">بدون سابقه (۰٪)</option>
+              <option value="D">D (−۵٪ و توقف رشد)</option>
+              <option value="E">E (رد قطعی)</option>
+            </select>
+          </div>
         </div>
-        <label class="check"><input type="checkbox" id="netArrears"> چک برگشتی رفع‌نشده یا معوقه در شبکۀ بانکی</label>
+        <label class="check"><input type="checkbox" id="netArrears"> چک برگشتی رفع‌نشده یا معوقه در شبکۀ بانکی دارد</label>
         <label class="check"><input type="checkbox" id="wantMore"> متقاضی افزایش سقف با سفتۀ الکترونیک (سِت)</label>
-        <div id="moreBox" class="hidden" style="margin-top:8px">
-          <label for="target">اعتبار ماهانۀ هدف: <b id="targetLbl"></b> از درآمد مبنا</label>
+        <div id="moreBox" class="hidden" style="margin-top:10px;background:var(--tika-neutral-50);padding:10px 12px;border-radius:var(--tika-radius-md)">
+          <label for="target">اعتبار ماهانۀ هدف: <b id="targetLbl" style="color:var(--tika-core-600)"></b> از درآمد مبنا (تا سقف <span id="maxCollLbl"></span>)</label>
           <input type="range" id="target" min="0" max="60" step="1" value="60">
         </div>
       </div>
 
       <div class="btns">
-        <button class="btn" id="sample">داده نمونه</button>
-        <button class="btn" id="bonus">نمونه با ماه عیدی</button>
+        <button class="btn" id="sample">بارگذاری دادۀ نمونه</button>
+        <button class="btn" id="bonus">نمونه همراه با ماه عیدی</button>
       </div>
     </section>
 
     <section class="card" aria-live="polite">
-      <h2>نتیجه</h2>
+      <h2>نتیجۀ محاسبۀ اعتبار</h2>
       <div id="result" class="result"></div>
       <div class="kpis" id="kpis"></div>
       <table class="steps"><tbody id="steps"></tbody></table>
       <h3>مسیر افزایش اعتبار ماهانه با رفتار خوب</h3>
-      <table><thead><tr><th>زمان</th><th>درصد</th><th>اعتبار ماهانه</th><th>سهم از حقوق خالص</th></tr></thead><tbody id="timeline"></tbody></table>
+      <table>
+        <thead>
+          <tr><th>زمان</th><th>درصد اعتبار</th><th>اعتبار ماهانه</th><th>سهم از حقوق خالص</th></tr>
+        </thead>
+        <tbody id="timeline"></tbody>
+      </table>
       <div id="coll"></div>
     </section>
   </div>
 
-  <p class="note">این ابزار نمونه است . اعتبار ماهانه سقف واحد در کل هاب است، با هر واریز حقوق تمدید می‌شود و مانده‌اش به ماه بعد نمی‌رود. خرید از بخش وثیقه‌ای حداکثر ۳ قسط دارد تا ماندۀ آن از مبلغ سفته بیشتر نشود. اگر خرید هر ماه در n قسط بازپرداخت شود، از n ماه به همان مبلغ اعتبار ماهانه می‌رسد. مبالغ به مضرب پایینی ۱۰۰ هزار تومان گرد می‌شوند.</p>
+  <!-- =====================================================================
+       تب چهارم: مرحلۀ رشد
+       ===================================================================== -->
+  <div id="growthPane" class="hidden">
+    <section class="card">
+      <h2>مرحلۀ رشد (موتور اصلی)</h2>
+      <div class="exec-summary" style="margin-bottom:0">
+        <span class="sec-badge">موتور داده‌محور</span>
+        <p style="margin:6px 0 0;font-size:var(--tika-fs-body-md);color:var(--tika-core-900)">
+          مرحلۀ رشد وقتی شروع می‌شود که سامانه دست‌کم <b>۱۰۰ هزار تراکنش اعتباری</b> ثبت کرده باشد. در این مرحله موتور اعتباردهی با داده‌های خود سامانه طراحی می‌شود و پیش از رسیدن به <b>۲۰۰ هزار تراکنش</b> عملیاتی خواهد شد.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <p class="note">
+    این ابزار نمونۀ محاسباتی هاب اعتباری تیکا است. اعتبار ماهانه سقف واحد در کل هاب است، با هر واریز حقوق تمدید می‌شود و مانده‌اش به ماه بعد نمی‌رود. خرید از بخش وثیقه‌ای حداکثر ۳ قسط دارد تا ماندۀ آن از مبلغ سفته بیشتر نشود. اگر خرید هر ماه در n قسط بازپرداخت شود، از ماه nام کسر ماهانه به همان مبلغ اعتبار ماهانه می‌رسد. مبالغ به مضرب پایینی ۱۰۰ هزار تومان گرد می‌شوند.
+  </p>
 </div>
 
 <script>
@@ -172,22 +735,49 @@ monthNames.forEach((n,i)=>{
 });
 function fill(arr){ arr.forEach((v,i)=> $('m'+i).value = v.toLocaleString('en-US')); calc(); }
 
-let stage = 'pilot';
+let stage = 'guide';
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
   stage = t.dataset.stage;
   document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+  
+  const isCalc = stage === 'pilot' || stage === 'launch';
+  $('guidePane').classList.toggle('hidden', stage !== 'guide');
+  $('calcPane').classList.toggle('hidden', !isCalc);
+  $('growthPane').classList.toggle('hidden', stage !== 'growth');
+  
   $('launchInputs').classList.toggle('hidden', stage !== 'launch');
-  calc();
+  $('dsrMaxWrap').classList.toggle('hidden', stage !== 'launch');
+  
+  if (isCalc) calc();
 }));
 
-const RANK = {A:{d:5,ext:true,freeze:false,lbl:'A'},B:{d:2.5,ext:true,freeze:false,lbl:'B'},C:{d:0,ext:true,freeze:false,lbl:'C'},
-  N:{d:0,ext:true,freeze:false,lbl:'بدون سابقه'},D:{d:-5,ext:false,freeze:true,lbl:'D'},E:{d:null,ext:false,freeze:true,lbl:'E'}};
+const RANK = {
+  A:{d:5,ext:true,freeze:false,lbl:'A'},
+  B:{d:2.5,ext:true,freeze:false,lbl:'B'},
+  C:{d:0,ext:true,freeze:false,lbl:'C'},
+  N:{d:0,ext:true,freeze:false,lbl:'بدون سابقه'},
+  D:{d:-5,ext:false,freeze:true,lbl:'D'},
+  E:{d:null,ext:false,freeze:true,lbl:'E'}
+};
 
-function median(a){ const s=[...a].sort((x,y)=>x-y); const m=s.length/2; return s.length%2? s[Math.floor(m)] : (s[m-1]+s[m])/2; }
+function median(a){
+  const s=[...a].sort((x,y)=>x-y);
+  const m=s.length/2;
+  return s.length%2 ? s[Math.floor(m)] : (s[m-1]+s[m])/2;
+}
+
+let prevCollCapPct = 60;
 
 function calc(){
   const M = [0,1,2,3,4,5].map(i => num($('m'+i)));
-  const D = num($('debt')), dsr = num($('dsr'))/100, dsrMax = num($('dsrMax'))/100, n = parseInt($('tenor').value,10), q = parseInt($('quarters').value,10);
+  const baseP = Math.max(0, num($('basePct')));
+  const maxTenureP = baseP + 10;
+  const dsr = num($('dsr'))/100;
+  const dsrMax = num($('dsrMax'))/100;
+  const collCapPct = Math.max(0, num($('collCap')));
+  const collCapRatio = collCapPct / 100;
+  const n = parseInt($('tenor').value,10);
+  const q = parseInt($('quarters').value,10);
   const res = $('result'), steps = $('steps'), tl = $('timeline'), kp = $('kpis'), coll = $('coll');
   steps.innerHTML = tl.innerHTML = kp.innerHTML = coll.innerHTML = '';
 
@@ -200,11 +790,11 @@ function calc(){
   if (launch && $('netArrears').checked) reject.push('چک برگشتی یا معوقه در شبکۀ بانکی.');
   if (launch && rk.d === null) reject.push('رتبۀ اعتباری E.');
 
-  const med = median(M), cap = 1.2*med;
+  const med = median(M), cap = 1.2 * med;
   const clipped = M.map(v => Math.min(v, cap));
   const avg = clipped.reduce((a,b)=>a+b,0)/6;
-  const capacity = Math.max(0, dsr*avg - D);
-  const capacityMax = Math.max(0, dsrMax*avg - D);
+  const capacity = Math.max(0, dsr * avg);
+  const capacityMax = Math.max(0, dsrMax * avg);
 
   let F = 1, pm = 0;
   if (launch){
@@ -214,8 +804,9 @@ function calc(){
   }
   const B = avg * F;
 
-  const pTen = qq => (launch && rk.freeze) ? 25 : Math.min(25 + 5*qq, 35);
-  const pOf = qq => launch ? Math.min(40, pTen(qq) + (rk.d||0)) : pTen(qq);
+  const pTen = qq => (launch && rk.freeze) ? baseP : Math.min(baseP + 5*qq, maxTenureP);
+  const capUnsecured = Math.max(40, maxTenureP + 5);
+  const pOf = qq => launch ? Math.max(0, Math.min(capUnsecured, pTen(qq) + (rk.d||0))) : pTen(qq);
   const limitOf = qq => floorR(Math.min(pOf(qq)/100 * B, capacity));
 
   const row = (k,v) => steps.insertAdjacentHTML('beforeend', `<tr><td>${k}</td><td class="num">${v}</td></tr>`);
@@ -234,10 +825,21 @@ function calc(){
   const wantMore = launch && $('wantMore').checked && rk.ext;
   $('moreBox').classList.toggle('hidden', !(launch && $('wantMore').checked));
   const tgt = $('target');
-  tgt.min = Math.ceil(p); if (+tgt.value < p) tgt.value = Math.ceil(p);
+  const minSlider = Math.ceil(p);
+  const maxSlider = Math.max(minSlider, Math.round(collCapPct));
+  tgt.min = minSlider;
+  tgt.max = maxSlider;
+  if (collCapPct !== prevCollCapPct) {
+    tgt.value = maxSlider;
+    prevCollCapPct = collCapPct;
+  }
+  if (+tgt.value < minSlider) tgt.value = minSlider;
+  if (+tgt.value > maxSlider) tgt.value = maxSlider;
   $('targetLbl').textContent = faPct(+tgt.value);
+  $('maxCollLbl').textContent = faPct(collCapPct);
+
   if (wantMore){
-    const maxTotal = Math.min(+tgt.value/100 * B, 0.6 * B, capacityMax);
+    const maxTotal = Math.min(+tgt.value/100 * B, collCapRatio * B, capacityMax);
     total = Math.max(L, floorR(maxTotal));
     dL = total - L;
   }
@@ -249,7 +851,7 @@ function calc(){
 
   kpi('میانگین تعدیل‌شده', money(avg));
   kpi(launch ? 'درآمد مبنای واقعی' : 'درآمد مبنا', money(B));
-  kpi('درصد اعتبار', faPct(p));
+  kpi('درصد اعتبار نهایی', faPct(p));
 
   row('میانۀ ۶ ماه', money(med));
   row('سقف برش (۱۲۰٪ میانه)', money(cap));
@@ -259,37 +861,42 @@ function calc(){
     row('تورم ماهانه (π<sub>m</sub>)', faPct(pm*100));
     row('ضریب تورم (F<sub>π</sub>)', new Intl.NumberFormat('fa-IR',{maximumFractionDigits:3}).format(F) + (F===0.85?' (کف)':''));
     row('رتبه / Δ<sub>r</sub>', `${rk.lbl} / ${rk.d>=0?'+':''}${faPct(rk.d)}` + (rk.freeze?' (افزایش سه‌ماهه متوقف)':''));
-    row('درصد اعتبار: p<sub>tenure</sub> + Δ<sub>r</sub> (سقف ۴۰٪)', `${faPct(pTen(q))} ${rk.d<0?'−':'+'} ${faPct(Math.abs(rk.d))} = ${faPct(p)}`);
+    row(`درصد اعتبار: p<sub>tenure</sub> + Δ<sub>r</sub> (سقف ${faPct(capUnsecured)})`, `${faPct(pTen(q))} ${rk.d<0?'−':'+'} ${faPct(Math.abs(rk.d))} = ${faPct(p)}`);
   } else {
-    row('درصد اعتبار: ۲۵٪ + ۵٪ برای هر بازبینی (سقف ۳۵٪)', faPct(p));
+    row(`درصد اعتبار: ${faPct(baseP)} + ۵٪ برای هر بازبینی (سقف ${faPct(maxTenureP)})`, faPct(p));
   }
   row('p × درآمد مبنا', money(Lraw));
-  row('قید ظرفیت بدون وثیقه: سقف کسورات × میانگین − کسورات فعلی', money(capacity));
+  row('ظرفیت بدهکاری به تیکا بدون وثیقه (%حقوق × میانگین)', money(capacity));
   row('اعتبار ماهانۀ پایه (گرد شده)', money(L));
 
   [0,1,2].forEach(qq => {
     const lim = limitOf(qq);
     const when = ['فعال‌سازی','ماه ۳','ماه ۶ به بعد'][qq];
-    tl.insertAdjacentHTML('beforeend', `<tr${qq===q?' style="font-weight:700"':''}><td>${when}</td><td class="num">${faPct(pOf(qq))}</td><td class="num">${money(lim)}</td><td class="num">${faPct(lim/avg*100)}</td></tr>`);
+    tl.insertAdjacentHTML('beforeend', `<tr${qq===q?' style="font-weight:700;background:var(--tika-core-50)"':''}><td>${when}</td><td class="num">${faPct(pOf(qq))}</td><td class="num">${money(lim)}</td><td class="num">${faPct(lim/avg*100)}</td></tr>`);
   });
 
   if (launch && $('wantMore').checked){
     if (!rk.ext){
       coll.innerHTML = `<div class="coll">افزایش اعتبار با سفته فقط برای رتبه‌های A تا C (و بدون سابقه) مجاز است.</div>`;
     } else {
-      coll.innerHTML = `<div class="coll"><div>افزایش اعتبار ماهانه (ΔL): <b>${money(dL)}</b> &nbsp;·&nbsp; جمع ${faPct(total/B*100)} درآمد مبنا</div>
-        <div>مبلغ سفتۀ الکترونیک لازم در سِت (۲ × ΔL):</div><div class="big2">${money(2*dL)}</div>
-        <div class="hint">خرید از این بخش حداکثر ۳ قسط دارد، پس ماندۀ آن هیچ‌وقت از مبلغ سفته بیشتر نمی‌شود. قید ظرفیت با وثیقه: ${money(capacityMax)}</div>
-        ${capacityMax < 0.6*B ? '<div class="hint">قید ظرفیت کسورات، سقف ۶۰٪ را محدود کرده است.</div>':''}</div>`;
+      coll.innerHTML = `<div class="coll">
+        <div>افزایش اعتبار ماهانه با وثیقه (ΔL): <b>${money(dL)}</b> &nbsp;·&nbsp; جمع کل: <b>${faPct(total/B*100)}</b> درآمد مبنا (سقف مجاز با سفته: ${faPct(collCapPct)})</div>
+        <div style="margin-top:6px">مبلغ سفتۀ الکترونیک لازم در سِت (۲ × ΔL):</div>
+        <div class="big2">${money(2*dL)}</div>
+        <div class="hint" style="color:var(--tika-core-700)">خرید از این بخش حداکثر ۳ قسط دارد، پس ماندۀ آن هیچ‌وقت از مبلغ سفته بیشتر نمی‌شود. ظرفیت بدهکاری به تیکا با وثیقه: <b>${money(capacityMax)}</b></div>
+        ${capacityMax < collCapRatio*B ? `<div class="hint" style="color:var(--tika-error-700);font-weight:600">ظرفیت بدهکاری به تیکا با وثیقه، سقف ${faPct(collCapPct)} را محدود کرده است.</div>`:''}
+      </div>`;
     }
   }
 }
 
 document.querySelectorAll('input,select').forEach(el => {
-  el.addEventListener('input', calc); el.addEventListener('change', calc);
+  el.addEventListener('input', calc);
+  el.addEventListener('change', calc);
 });
 document.querySelectorAll('input[inputmode=numeric]').forEach(el => el.addEventListener('blur', () => {
-  const v = parseFloat(toEn(el.value)); if (!isNaN(v)) el.value = Math.round(v).toLocaleString('en-US');
+  const v = parseFloat(toEn(el.value));
+  if (!isNaN(v)) el.value = Math.round(v).toLocaleString('en-US');
 }));
 $('sample').addEventListener('click', () => fill(SAMPLE));
 $('bonus').addEventListener('click', () => fill(BONUS));
